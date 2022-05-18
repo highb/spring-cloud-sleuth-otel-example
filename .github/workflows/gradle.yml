@@ -34,7 +34,23 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        images: ${{ env.image-name }}
+        tags: |
+          type=sha
+          type=ref,event=branch
+          type=ref,event=tag
+          type=ref,event=pr
+    - name: Split tags for Jib
+      id: split-tags
+      run: |
+        SPLIT=$(echo "${{ steps.meta.outputs.tags }}" | xargs -n 1 | sed 's/.*:\(.*\)/\1/')
+        echo "::set-output name=tags::$(echo ${SPLIT} | xargs echo | tr ' ' ',')"
+        echo "::set-output name=tag-first::$(echo ${SPLIT} | cut -d' ' -f1)"
     - name: Build with Gradle
       uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
       with:
-        arguments: jib
+        arguments: jib --Djib.to.tags=${{ steps.split-tags.outputs.tags }}
