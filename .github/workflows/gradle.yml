@@ -38,7 +38,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v4
       with:
-        images: ${{ env.image-name }}
+        images: ghcr.io/highb/spring-cloud-sleuth-otel-example
         tags: |
           type=sha
           type=ref,event=branch
