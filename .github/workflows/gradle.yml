@@ -15,6 +15,7 @@ on:
 
 permissions:
   contents: read
+  packages: write
 
 jobs:
   build:
@@ -51,6 +52,6 @@ jobs:
         echo "::set-output name=tags::$(echo ${SPLIT} | xargs echo | tr ' ' ',')"
         echo "::set-output name=tag-first::$(echo ${SPLIT} | cut -d' ' -f1)"
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+      uses: gradle/gradle-build-action@v2.1.6
       with:
         arguments: jib -Djib.to.tags=${{ steps.split-tags.outputs.tags }} -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
