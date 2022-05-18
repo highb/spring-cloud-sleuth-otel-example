@@ -32,7 +32,7 @@ dependencyManagement {
 
 jib {
   to {
-    image = 'ghcr.io/highb/spring-cloud-sleuth-otel-example'
+    image = 'ghcr.io/highb/spring-cloud-sleuth-otel-example/spring-cloud-sleuth-otel-example'
   }
 }
 
