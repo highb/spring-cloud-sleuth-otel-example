@@ -42,7 +42,7 @@ dependencyManagement {
 
 jib {
   to {
-    image = 'docker.pkg.github.com/highb/spring-cloud-sleuth-otel-example/spring-cloud-sleuth-otel-example'
+    image = 'ghcr.io/highb/spring-cloud-sleuth-otel-example/spring-cloud-sleuth-otel-example'
   }
 }
 
