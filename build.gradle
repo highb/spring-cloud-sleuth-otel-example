@@ -10,23 +10,33 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
 repositories {
-	mavenCentral()
+    maven { // The google mirror is less flaky than mavenCentral()
+        url "https://maven-central.storage-download.googleapis.com/maven2/" }
+    mavenLocal()
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven { url 'https://repo.spring.io/milestone' }
+    mavenCentral()
 }
 
 ext {
 	set('springCloudVersion', "2021.0.2")
+	set('springCloudSleuthOtelVersion', "1.1.0-M5")
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+	implementation('org.springframework.cloud:spring-cloud-starter-sleuth') {
+			exclude group: 'org.springframework.cloud', module: 'spring-cloud-sleuth-brave'
+	}
+	implementation 'org.springframework.cloud:spring-cloud-sleuth-otel-autoconfigure'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+		mavenBom "org.springframework.cloud:spring-cloud-sleuth-otel-dependencies:${springCloudSleuthOtelVersion}"
 	}
 }
 
