@@ -1,8 +1,8 @@
 plugins {
-	id 'org.springframework.boot' version '2.6.7'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'org.springframework.boot' version '2.7.4'
+	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
 	id 'java'
-	id 'com.google.cloud.tools.jib' version '3.2.1'
+	id 'com.google.cloud.tools.jib' version '3.3.0'
 }
 
 group = 'io.bmh'
@@ -19,8 +19,8 @@ repositories {
 }
 
 ext {
-	set('springCloudVersion', "2021.0.2")
-	set('springCloudSleuthOtelVersion', "1.1.0-M5")
+	set('springCloudVersion', "2021.0.4")
+	set('springCloudSleuthOtelVersion', "1.1.0")
 }
 
 dependencies {
